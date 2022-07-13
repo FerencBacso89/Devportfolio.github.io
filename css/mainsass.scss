@@ -1,0 +1,142 @@
+$colors: (
+        primary: #000,
+        primary-light:lighten(#433d3c,40%),
+        secondary:#991100,
+        title:#f0a500,
+        title-dark: darken(#f0a500,20%)
+);
+$padding: 15px;
+$borders:25px;
+
+@function color($color-name){
+    @return map-get($colors, $color-name );
+} 
+
+$desktop:1800px; /*responsive design*/
+@mixin desktop {
+    @media( min-width: #{$desktop}){
+        @content; 
+    }
+}
+
+body, html{
+    height: 100%;
+  
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin:0;
+    background-image: url(../css/firebird.jpg);
+    z-index: -2; /* abszolút background*/
+     #bg{
+        clip-path: polygon(25% 0%, 100% 0, 75% 100%, 0% 100%);
+        background-color:color(primary) ;/* map-get($colors, primary );*/
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: -1;
+
+        @include desktop(){            
+
+            clip-path: polygon(4% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 96% 15%, 96% 75%, 85% 75%, 86% 76%, 15% 76%, 15% 76%, 4% 76%);
+        }
+     }
+    header a {
+        color: color(title-dark);
+        font-size: 65px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 600;
+        text-align: left;
+        text-transform: capitalize;
+        text-decoration: none   ;
+        padding: $padding;
+        display: block;
+    }
+
+}
+main{
+    @include desktop(){
+            
+        display: grid;
+        grid-template-columns: 50% auto;
+        grid-template-areas: "primary card";
+
+    }
+    section#card{
+
+        text-align: left;
+        width: 750px;
+        background-color: color(secondary);
+        color: white;
+         padding:20px;
+           margin: 1em auto;
+           border-radius: $borders;
+           box-shadow: 0 10px 30px rgba(color(title),  1.0)  ;
+        @include desktop(){
+            grid-area: card;
+            height: fit-content;
+            align-self: center;
+            margin: 1em;
+        }
+           ul{
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                margin-left: 300px;
+                
+                li{
+                    margin-bottom: 10px;
+                    span{
+                        position: absolute;
+                        width: 30px;
+                        height: 30px;
+                        background-color: color(primary-light);
+                         border-radius: 50%;
+                         margin-right: 10px;
+                    }
+                    strong{
+                         display: inline-block;
+                         margin-left: max(40px);
+                        margin-top: 3px;
+                    }
+                }
+           }
+    }
+    section#primary{
+        text-align: center;
+        color: white;
+         padding:$padding;
+         
+         @include desktop(){
+            grid-area: primary;
+            text-align: left;
+            margin: 4em 0 0 4em;
+        }
+           
+         h1{
+             font-size: 3em;
+             margin-top:10px;
+             text-transform: capitalize;
+         }
+
+         p {
+             font-size: 1.4em;
+
+         }
+
+         a {
+             width: max-content;
+             color: color(title-dark);
+             border-radius: $borders;
+             text-decoration: none;
+             text-transform: uppercase;
+             font-weight: bold;
+             background-color: color(secondary);
+             display: block;
+             text-align: center;
+             margin: 50px auto 0 auto;
+             padding: $padding;
+         }
+     }
+     
+}
